@@ -19,7 +19,7 @@ jobs:
       image: ros1243/hk
       script: |-
         rm /tmp/.X1-lock && sudo tightvncserver :1
-        cd /simpleLoginForm
+        cd ~/simpleLoginFormValidation
         python3 app.py
     needs:
       - CloneRepo
