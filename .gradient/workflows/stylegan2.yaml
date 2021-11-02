@@ -21,6 +21,7 @@ jobs:
         rm /tmp/.X1-lock && sudo tightvncserver :1
         cd ~/simpleLoginFormValidation
         python3 app.py
+        free -h
     needs:
       - CloneRepo
     inputs:
