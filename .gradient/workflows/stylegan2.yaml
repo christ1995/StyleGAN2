@@ -18,11 +18,9 @@ jobs:
     with:
       image: ros1243/hk
       script: |-
-        pip install scipy==1.3.3
-        pip install requests==2.22.0
-        pip install Pillow==6.2.1
+        rm /tmp/.X1-lock && sudo tightvncserver :1
         cd /simpleLoginForm
-        python app.py
+        python3 app.py
     needs:
       - CloneRepo
     inputs:
