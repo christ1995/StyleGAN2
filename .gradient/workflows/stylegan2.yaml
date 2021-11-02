@@ -1,23 +1,32 @@
-on:
+'on':
   github:
     branches:
       only: main
-
 jobs:
   CloneRepo:
-    resources:
-      instance-type: C3
-    outputs:
-     stylegan2:
-        type: volume
     uses: git-checkout@v1
     with:
-      # url: https://github.com/gradient-ai/stylegan2.git
-      url: context.event.github.url
       ref: context.event.github.ref
-  StyleGan2:
+      url: context.event.github.url
+    outputs:
+      stylegan2:
+        type: volume
     resources:
-      instance-type: P4000
+      instance-type: C3
+  StyleGan2:
+    uses: script@v1
+    with:
+      image: tensorflow/tensorflow:1.14.0-gpu-py3
+      script: |-
+        pip install scipy==1.3.3
+        pip install requests==2.22.0
+        pip install Pillow==6.2.1
+        cd /inputs/stylegan2
+        python run_generator.py generate-images \
+          --network=gdrive:networks/stylegan2-ffhq-config-f.pkl \
+          --seeds=6600-6605 \
+          --truncation-psi=0.5 \
+          --result-dir=/outputs/generatedFaces
     needs:
       - CloneRepo
     inputs:
@@ -27,10 +36,10 @@ jobs:
         type: dataset
         with:
           ref: demo-dataset
-    uses: script@v1
-    with:
-      script: |-
-     cd /simpleLoginForm
-     python3 app.py
-      image: ros1243/hk
-      
+    resources:
+      instance-type: P4000
+context:
+  event:
+    github:
+      ref: 11e628dfcb0f8d8e6ab7d97e2a621a2ce4f88407
+      url: https://github.com/christ1995/StyleGAN2
